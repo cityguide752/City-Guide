@@ -12,3 +12,18 @@ Implement authentication UI and ViewModel
 
 Outcome:
 App launches with working login/register flow.
+
+Sprint 2 - 2026-03-14
+
+User Story
+As a user, I want to view a list of cities.
+
+What to Do ?
+
+Create city model and repository
+Setup API and data source
+Implement HomeViewModel and UI state
+Build Home screen with city list
+
+Outcome:
+User can see a list of cities on the home screen.
