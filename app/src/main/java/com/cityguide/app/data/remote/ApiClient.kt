@@ -9,12 +9,15 @@ object ApiClient {
 
     private const val BASE_URL = "https://en.wikipedia.org/api/rest_v1/"
 
-    private val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
     private val client = OkHttpClient.Builder()
-        .addInterceptor(logging)
+        .addInterceptor { chain ->
+
+            val request = chain.request().newBuilder()
+                .addHeader("User-Agent", "CityGuideApp/1.0 (Android)")
+                .build()
+
+            chain.proceed(request)
+        }
         .build()
 
     val apiService: WikipediaApiService by lazy {
@@ -25,6 +28,5 @@ object ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(WikipediaApiService::class.java)
-
     }
 }

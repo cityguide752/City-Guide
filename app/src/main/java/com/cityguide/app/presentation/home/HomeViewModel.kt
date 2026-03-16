@@ -29,18 +29,17 @@ class HomeViewModel(
                 val cities = getCitiesUseCase()
 
                 _uiState.value = HomeUiState(
-                    isLoading = false,
                     cities = cities
                 )
 
             } catch (e: Exception) {
 
                 _uiState.value = HomeUiState(
-                    isLoading = false,
                     error = e.message
                 )
 
             }
+
         }
     }
 }
