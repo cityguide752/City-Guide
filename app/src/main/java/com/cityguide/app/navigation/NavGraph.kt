@@ -5,7 +5,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.cityguide.app.presentation.auth.AuthScreen
+import com.cityguide.app.presentation.citydetails.CityDetailsScreen
 import com.cityguide.app.presentation.home.HomeScreen
 import com.cityguide.app.presentation.splash.SplashScreen
 import com.cityguide.app.presentation.splash.SplashViewModel
@@ -56,6 +58,16 @@ fun CityGuideNavGraph() {
                     )
                 }
             )
+        }
+
+        composable<CityDetails> {
+
+            val args = it.toRoute<CityDetails>()
+
+            CityDetailsScreen(
+                cityName = args.cityName
+            )
+
         }
     }
 }

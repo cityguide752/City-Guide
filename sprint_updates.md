@@ -27,3 +27,18 @@ Build Home screen with city list
 
 Outcome:
 User can see a list of cities on the home screen.
+
+Sprint 3 - 2026-03-17
+
+User Story
+As a user, I want to view city details and listen to them.
+
+What to Do ?
+
+Build city details screen
+Integrate Gemini API for data
+Add ViewModel and UI state
+Implement Text-to-Speech feature
+
+Outcome:
+User can view detailed city info and listen to it.
