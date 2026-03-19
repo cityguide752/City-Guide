@@ -34,42 +34,43 @@ fun CityDetailsContent(
             style = MaterialTheme.typography.titleMedium
         )
 
-        Text(
-            text = city.description
-        )
+        Text(text = city.description)
 
-        Spacer(modifier = Modifier.height(16.dp))
+        if (city.attractions.isNotBlank()) {
 
-        Text(
-            text = "Attractions",
-            style = MaterialTheme.typography.titleMedium
-        )
+            Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text = city.attractions
-        )
+            Text(
+                text = "Attractions",
+                style = MaterialTheme.typography.titleMedium
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Text(text = city.attractions)
+        }
 
-        Text(
-            text = "Culture",
-            style = MaterialTheme.typography.titleMedium
-        )
+        if (city.culture.isNotBlank()) {
 
-        Text(
-            text = city.culture
-        )
+            Spacer(modifier = Modifier.height(16.dp))
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Culture",
+                style = MaterialTheme.typography.titleMedium
+            )
 
-        Text(
-            text = "Food",
-            style = MaterialTheme.typography.titleMedium
-        )
+            Text(text = city.culture)
+        }
 
-        Text(
-            text = city.food
-        )
+        if (city.food.isNotBlank()) {
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "Food",
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Text(text = city.food)
+        }
 
     }
 

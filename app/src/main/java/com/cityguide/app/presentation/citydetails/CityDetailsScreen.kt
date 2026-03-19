@@ -1,7 +1,16 @@
 package com.cityguide.app.presentation.citydetails
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cityguide.app.domain.model.City
 
 @Composable
@@ -9,15 +18,41 @@ fun CityDetailsScreen(
     cityName: String
 ) {
 
-    val city = City(
-        name = cityName,
-        description = "This is a placeholder description for $cityName. The real data will be fetched from Wikipedia API in the next commit.",
-        attractions = "Famous landmarks and attractions in $cityName.",
-        culture = "$cityName has a rich cultural heritage with traditions and festivals.",
-        food = "$cityName is known for its local cuisine and popular dishes."
-    )
+    val viewModel: CityDetailsViewModel = viewModel()
 
-    CityDetailsContent(city = city)
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(cityName) {
+        viewModel.loadCity(cityName)
+    }
+
+    when {
+
+        uiState.isLoading -> {
+
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                CircularProgressIndicator()
+            }
+
+        }
+
+        uiState.error != null -> {
+
+            Text(text = uiState.error ?: "Error loading city")
+
+        }
+
+        uiState.city != null -> {
+
+            CityDetailsContent(
+                city = uiState.city!!
+            )
+
+        }
+
+    }
 
 }
 
