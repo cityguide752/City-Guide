@@ -3,17 +3,27 @@ package com.cityguide.app.presentation.citydetails
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.cityguide.app.domain.model.City
+import com.cityguide.app.presentation.tts.TTSManager
 
 @Composable
 fun CityDetailsContent(
     city: City
 ) {
+
+    val context = LocalContext.current
+    val ttsManager = remember { TTSManager(context) }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            ttsManager.shutdown()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -35,6 +45,30 @@ fun CityDetailsContent(
         )
 
         Text(text = city.description)
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row {
+
+            Button(
+                onClick = {
+                    ttsManager.speak(city.description)
+                }
+            ) {
+                Text("Speak")
+            }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Button(
+                onClick = {
+                    ttsManager.stop()
+                }
+            ) {
+                Text("Stop")
+            }
+
+        }
 
         if (city.attractions.isNotBlank()) {
 
