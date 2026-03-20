@@ -42,3 +42,18 @@ Implement Text-to-Speech feature
 
 Outcome:
 User can view detailed city info and listen to it.
+
+Sprint 4 - 2026-03-20
+
+User Story
+As a user, I want offline access and app settings.
+
+What to Do ?
+
+Implement Room database
+Add caching in repository
+Handle offline mode
+Build settings screen (clear cache, logout)
+
+Outcome:
+App supports caching, offline handling, and settings control.
