@@ -20,7 +20,8 @@ class HomeViewModelFactory(
 
         val repository = CityRepositoryImpl(
             firestoreDataSource = firestoreDataSource,
-            cityDao = database.cityDao()
+            cityDao = database.cityDao(),
+            context = context
         )
 
         val getCitiesUseCase = GetCitiesUseCase(repository)

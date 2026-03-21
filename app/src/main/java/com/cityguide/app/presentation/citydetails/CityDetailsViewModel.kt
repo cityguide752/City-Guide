@@ -21,7 +21,8 @@ class CityDetailsViewModel(
     private val repository =
         CityRepositoryImpl(
             firestoreDataSource = FirestoreCityDataSource(),
-            cityDao = database.cityDao()
+            cityDao = database.cityDao(),
+            context = application
         )
 
     private val getCityDetailsUseCase =
