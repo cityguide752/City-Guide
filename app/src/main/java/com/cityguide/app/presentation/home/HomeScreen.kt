@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cityguide.app.domain.model.City
@@ -13,8 +14,10 @@ fun HomeScreen(
     onCityClick: (City) -> Unit
 ) {
 
+    val context = LocalContext.current
+
     val viewModel: HomeViewModel = viewModel(
-        factory = HomeViewModelFactory()
+        factory = HomeViewModelFactory(context)
     )
 
     val uiState by viewModel.uiState.collectAsState()

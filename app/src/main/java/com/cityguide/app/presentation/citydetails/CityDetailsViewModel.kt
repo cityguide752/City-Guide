@@ -1,18 +1,28 @@
 package com.cityguide.app.presentation.citydetails
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.cityguide.app.data.firestore.FirestoreCityDataSource
+import com.cityguide.app.data.local.CityDatabase
 import com.cityguide.app.data.repository.CityRepositoryImpl
 import com.cityguide.app.domain.usecase.GetCityDetailsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class CityDetailsViewModel : ViewModel() {
+class CityDetailsViewModel(
+    application: Application
+) : AndroidViewModel(application) {
+
+    private val database =
+        CityDatabase.getDatabase(application)
 
     private val repository =
-        CityRepositoryImpl(FirestoreCityDataSource())
+        CityRepositoryImpl(
+            firestoreDataSource = FirestoreCityDataSource(),
+            cityDao = database.cityDao()
+        )
 
     private val getCityDetailsUseCase =
         GetCityDetailsUseCase(repository)

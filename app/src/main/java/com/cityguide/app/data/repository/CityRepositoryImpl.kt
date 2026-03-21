@@ -2,13 +2,16 @@ package com.cityguide.app.data.repository
 
 import com.cityguide.app.BuildConfig
 import com.cityguide.app.data.firestore.FirestoreCityDataSource
+import com.cityguide.app.data.local.CityDao
+import com.cityguide.app.data.local.CityEntity
 import com.cityguide.app.data.remote.GeminiService
 import com.cityguide.app.data.remote.buildCityPrompt
 import com.cityguide.app.domain.model.City
 import com.cityguide.app.domain.repository.CityRepository
 
 class CityRepositoryImpl(
-    private val firestoreDataSource: FirestoreCityDataSource
+    private val firestoreDataSource: FirestoreCityDataSource,
+    private val cityDao: CityDao
 ) : CityRepository {
 
     private val apiKey = BuildConfig.GEMINI_API_KEY
@@ -29,6 +32,19 @@ class CityRepositoryImpl(
 
     override suspend fun getCityDetails(cityName: String): City {
 
+        val cachedCity = cityDao.getCity(cityName)
+
+        if (cachedCity != null) {
+
+            return City(
+                name = cachedCity.name,
+                description = cachedCity.description,
+                attractions = cachedCity.attractions,
+                culture = cachedCity.culture,
+                food = cachedCity.food
+            )
+        }
+
         val request = buildCityPrompt(cityName)
 
         val response = GeminiService.api.generateContent(
@@ -45,9 +61,21 @@ class CityRepositoryImpl(
             ?.text
             ?: "Information unavailable."
 
-        return City(
+        val city = City(
             name = cityName,
             description = text
         )
+
+        cityDao.insertCity(
+            CityEntity(
+                name = city.name,
+                description = city.description,
+                attractions = city.attractions,
+                culture = city.culture,
+                food = city.food
+            )
+        )
+
+        return city
     }
 }
