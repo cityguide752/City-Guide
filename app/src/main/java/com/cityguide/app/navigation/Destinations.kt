@@ -15,3 +15,6 @@ object Auth
 data class CityDetails(
     val cityName: String
 )
+
+@Serializable
+object Settings

@@ -14,4 +14,6 @@ interface CityDao {
     @Query("SELECT * FROM cities WHERE name = :cityName")
     suspend fun getCity(cityName: String): CityEntity?
 
+    @Query("DELETE FROM cities")
+    suspend fun clearCache()
 }

@@ -9,6 +9,7 @@ import androidx.navigation.toRoute
 import com.cityguide.app.presentation.auth.AuthScreen
 import com.cityguide.app.presentation.citydetails.CityDetailsScreen
 import com.cityguide.app.presentation.home.HomeScreen
+import com.cityguide.app.presentation.settings.SettingsScreen
 import com.cityguide.app.presentation.splash.SplashScreen
 import com.cityguide.app.presentation.splash.SplashViewModel
 
@@ -66,6 +67,18 @@ fun CityGuideNavGraph() {
 
             CityDetailsScreen(
                 cityName = args.cityName
+            )
+
+        }
+
+        composable<Settings> {
+
+            SettingsScreen(
+                onLogoutSuccess = {
+                    navController.navigate(Auth) {
+                        popUpTo(Home) { inclusive = true }
+                    }
+                }
             )
 
         }
