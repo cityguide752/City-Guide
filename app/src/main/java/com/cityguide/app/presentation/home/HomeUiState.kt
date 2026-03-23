@@ -8,6 +8,7 @@ data class HomeUiState(
 
     val cities: List<City> = emptyList(),
 
-    val error: String? = null
+    val previewCity: City? = null,
 
+    val error: String? = null
 )

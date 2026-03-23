@@ -72,9 +72,31 @@ class CityRepositoryImpl(
             ?.text
             ?: "Information unavailable."
 
+        val description =
+            text.substringAfter("Description:", "")
+                .substringBefore("Attractions:")
+                .trim()
+
+        val attractions =
+            text.substringAfter("Attractions:", "")
+                .substringBefore("Culture:")
+                .trim()
+
+        val culture =
+            text.substringAfter("Culture:", "")
+                .substringBefore("Food:")
+                .trim()
+
+        val food =
+            text.substringAfter("Food:", "")
+                .trim()
+
         val city = City(
             name = cityName,
-            description = text
+            description = description,
+            attractions = attractions,
+            culture = culture,
+            food = food
         )
 
         cityDao.insertCity(

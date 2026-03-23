@@ -7,6 +7,7 @@ import com.cityguide.app.data.firestore.FirestoreCityDataSource
 import com.cityguide.app.data.local.CityDatabase
 import com.cityguide.app.data.repository.CityRepositoryImpl
 import com.cityguide.app.domain.usecase.GetCitiesUseCase
+import com.cityguide.app.domain.usecase.GetCityDetailsUseCase
 
 class HomeViewModelFactory(
     private val context: Context
@@ -26,6 +27,11 @@ class HomeViewModelFactory(
 
         val getCitiesUseCase = GetCitiesUseCase(repository)
 
-        return HomeViewModel(getCitiesUseCase) as T
+        val getCityDetailsUseCase = GetCityDetailsUseCase(repository)
+
+        return HomeViewModel(
+            getCitiesUseCase = getCitiesUseCase,
+            getCityDetailsUseCase = getCityDetailsUseCase
+        ) as T
     }
 }

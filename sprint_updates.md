@@ -57,3 +57,18 @@ Build settings screen (clear cache, logout)
 
 Outcome:
 App supports caching, offline handling, and settings control.
+
+Sprint 5 - 2026-03-23
+
+User Story
+As a user, I want a smooth and polished app experience.
+
+What to Do ?
+
+Improve UI design and theming
+Add preview dialog and enhancements
+Refactor screens for consistency
+Finalize app and branding
+
+Outcome:
+App is polished, consistent, and ready for demo.

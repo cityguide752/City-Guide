@@ -21,6 +21,7 @@ fun HomeScreen(
     )
 
     val uiState by viewModel.uiState.collectAsState()
+    val previewCity = uiState.previewCity
 
     when {
 
@@ -48,10 +49,58 @@ fun HomeScreen(
 
             HomeContent(
                 cities = uiState.cities,
-                onCityClick = onCityClick
+                onCityClick = { city ->
+                    viewModel.loadCityPreview(city.name)
+                }
             )
 
         }
+    }
+    previewCity?.let { city ->
+
+        AlertDialog(
+
+            onDismissRequest = {
+                viewModel.closePreview()
+            },
+
+            title = {
+                Text(city.name)
+            },
+
+            text = {
+                Text(city.description)
+            },
+
+            confirmButton = {
+
+                Button(
+                    onClick = {
+
+                        viewModel.closePreview()
+                        onCityClick(city)
+
+                    }
+                ) {
+                    Text("Open Details")
+                }
+
+            },
+
+            dismissButton = {
+
+                Button(
+                    onClick = {
+                        viewModel.closePreview()
+                    }
+                ) {
+                    Text("Close")
+                }
+
+            }
+
+        )
+
     }
 }
 
