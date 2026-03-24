@@ -52,13 +52,21 @@ fun CityGuideNavGraph() {
         }
 
         composable<Home> {
+
             HomeScreen(
+
                 onCityClick = { city ->
                     navController.navigate(
                         CityDetails(city.name)
                     )
+                },
+
+                onSettingsClick = {
+                    navController.navigate(Settings)
                 }
+
             )
+
         }
 
         composable<CityDetails> {
