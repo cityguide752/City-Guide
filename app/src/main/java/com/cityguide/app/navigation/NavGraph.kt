@@ -74,7 +74,10 @@ fun CityGuideNavGraph() {
             val args = it.toRoute<CityDetails>()
 
             CityDetailsScreen(
-                cityName = args.cityName
+                cityName = args.cityName,
+                onBackClick = {
+                    navController.popBackStack()
+                }
             )
 
         }

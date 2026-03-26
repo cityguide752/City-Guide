@@ -16,7 +16,8 @@ import com.cityguide.app.domain.model.City
 
 @Composable
 fun CityDetailsScreen(
-    cityName: String
+    cityName: String,
+    onBackClick : () -> Unit
 ) {
 
     val viewModel: CityDetailsViewModel = viewModel()
@@ -49,7 +50,10 @@ fun CityDetailsScreen(
         uiState.city != null -> {
 
             CityDetailsContent(
-                city = uiState.city!!
+                city = uiState.city!!,
+                onBackClick = {
+                    onBackClick()
+                }
             )
 
         }
